@@ -451,6 +451,7 @@ class TexParser {
   }
 
   final argParsingContexts = Queue<ArgumentParsingContext>();
+
   ArgumentParsingContext get currArgParsingContext => argParsingContexts.last;
 
   void _enterArgumentParsingMode(String name, FunctionSpec funcData) {
@@ -477,6 +478,7 @@ class TexParser {
       r'^#?([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$',
       caseSensitive: false);
   static final _parseColorRegex3 = RegExp(r'^([a-z]+)$', caseSensitive: false);
+
   // static final _parseColorRegex =
   //     RegExp(r'^(#[a-f0-9]{3}|#?[a-f0-9]{6}|[a-z]+)$', caseSensitive: false);
   // static final _matchColorRegex =
@@ -531,6 +533,7 @@ class TexParser {
       RegExp(r'^[-+]? *(?:$|\d+|\d+\.\d*|\.\d*) *[a-z]{0,2} *$');
   static final _parseMeasurementRegex =
       RegExp(r'([-+]?) *(\d+(?:\.\d*)?|\.\d+) *([a-z]{2})');
+
   Measurement? parseArgSize({required bool optional}) {
     currArgParsingContext.newArgument(optional: optional);
     final i = currArgParsingContext.currArgNum;
@@ -703,6 +706,7 @@ class TexParser {
   }
 
   static final _parseVerbRegex = RegExp(r'^\\verb[^a-zA-Z]');
+
   GreenNode? _parseSymbol() {
     final nucleus = this.fetch();
     var text = nucleus.text;
@@ -820,6 +824,7 @@ class ArgumentParsingContext {
 
   bool get optional => _optional;
   bool _optional;
+
   set optional(bool value) {
     assert(_optional || !value);
     _optional = value;
@@ -844,6 +849,7 @@ class ScriptsParsingResults {
   final EquationRowNode? subscript;
   final EquationRowNode? superscript;
   final bool? limits;
+
   const ScriptsParsingResults({
     required this.subscript,
     required this.superscript,
