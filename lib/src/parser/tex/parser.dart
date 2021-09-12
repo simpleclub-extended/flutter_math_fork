@@ -792,7 +792,9 @@ class TexParser {
             'Unicode text character "${text[0]} used in math mode"', nucleus);
       }
       symbol = SymbolNode(
-          symbol: text + combiningMarks, overrideAtomType: AtomType.ord);
+          symbol: text + combiningMarks,
+          overrideAtomType: AtomType.ord,
+          mode: mode);
     } else {
       return null;
     }
