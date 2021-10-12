@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 
 import '../constants.dart';
 import '../utils/render_box_offset.dart';
+import '../utils/render_box_layout.dart';
 
 class LineParentData extends ContainerBoxParentData<RenderBox> {
   // The first canBreakBefore has no effect
@@ -340,13 +341,7 @@ class RenderLine extends RenderBox
       } else if (childParentData.alignerOrSpacer) {
         alignerAndSpacers.add(child);
       } else {
-        final Size childSize;
-        if (dry) {
-          childSize = child.getDryLayout(infiniteConstraint);
-        } else {
-          child.layout(infiniteConstraint, parentUsesSize: true);
-          childSize = child.size;
-        }
+        final childSize = child.getLayoutSize(infiniteConstraint, dry: dry);
         sizeMap[child] = childSize;
         final distance = dry ? 0.0 : child.getDistanceToBaseline(textBaseline)!;
         maxHeightAboveBaseline = math.max(maxHeightAboveBaseline, distance);
@@ -363,14 +358,7 @@ class RenderLine extends RenderBox
       assert(childParentData.customCrossSize != null);
       final childConstraints = childParentData.customCrossSize!(
           maxHeightAboveBaseline, maxDepthBelowBaseline);
-      final Size childSize;
-
-      if (dry) {
-        childSize = child.getDryLayout(childConstraints);
-      } else {
-        child.layout(childConstraints, parentUsesSize: true);
-        childSize = child.size;
-      }
+      final childSize = child.getLayoutSize(childConstraints, dry: dry);
       sizeMap[child] = childSize;
       final distance = dry ? 0.0 : child.getDistanceToBaseline(textBaseline)!;
       maxHeightAboveBaseline = math.max(maxHeightAboveBaseline, distance);
@@ -397,12 +385,7 @@ class RenderLine extends RenderBox
       var childSize = sizeMap[child] ?? Size.zero;
       if (childParentData.alignerOrSpacer) {
         final childConstraints = BoxConstraints.tightFor(width: 0.0);
-        if (dry) {
-          childSize = child.getDryLayout(childConstraints);
-        } else {
-          child.layout(childConstraints, parentUsesSize: true);
-          childSize = child.size;
-        }
+        childSize = child.getLayoutSize(childConstraints, dry: dry);
 
         colWidths.add(mainPos - lastColPosition);
         lastColPosition = mainPos;

@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../constants.dart';
 import '../utils/get_type_of.dart';
 import '../utils/render_box_offset.dart';
+import '../utils/render_box_layout.dart';
 
 abstract class CustomLayoutDelegate<T> {
   const CustomLayoutDelegate();
@@ -278,13 +279,8 @@ abstract class IntrinsicLayoutDelegate<T> extends CustomLayoutDelegate<T> {
   }) {
     final sizeMap = <T, Size>{};
     for (final childEntry in childrenTable.entries) {
-      if (dry) {
-        sizeMap[childEntry.key] =
-            childEntry.value.getDryLayout(infiniteConstraint);
-      } else {
-        childEntry.value.layout(infiniteConstraint, parentUsesSize: true);
-        sizeMap[childEntry.key] = childEntry.value.size;
-      }
+      sizeMap[childEntry.key] =
+          childEntry.value.getLayoutSize(infiniteConstraint, dry: dry);
     }
 
     final hconf = performHorizontalIntrinsicLayout(

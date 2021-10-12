@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+import '../utils/render_box_layout.dart';
+
 class VListParentData extends ContainerBoxParentData<RenderBox> {
   BoxConstraints Function(double width)? customCrossSize;
 
@@ -365,16 +367,10 @@ class RenderRelativeWidthColumn extends RenderBox
         relativeChildren.add(child);
       } else {
         final innerConstraints = BoxConstraints(maxWidth: constraints.maxWidth);
-
-        final Size childSize;
-        if (dry) {
-          childSize = child.getDryLayout(innerConstraints);
-        } else {
-          child.layout(innerConstraints, parentUsesSize: true);
-          childSize = child.size;
-        }
+        final childSize = child.getLayoutSize(innerConstraints, dry: dry);
         final width = childSize.width;
         final right = getRightMost(crossAxisAlignment, width);
+
         leftMost = math.min(leftMost, right - width);
         rightMost = math.max(rightMost, right);
         allocatedSize += childSize.height + childParentData.trailingMargin;
@@ -392,16 +388,10 @@ class RenderRelativeWidthColumn extends RenderBox
 
       final childConstraints =
           childParentData.customCrossSize!(fixedChildrenCrossSize);
-      final Size childSize;
-      if (dry) {
-        childSize = child.getDryLayout(childConstraints);
-      } else {
-        child.layout(childConstraints, parentUsesSize: true);
-        childSize = child.size;
-      }
-
+      final childSize = child.getLayoutSize(childConstraints, dry: dry);
       final width = childSize.width;
       final right = getRightMost(crossAxisAlignment, width);
+
       leftMost = math.min(leftMost, right - width);
       rightMost = math.max(rightMost, right);
       allocatedSize += childSize.height + childParentData.trailingMargin;

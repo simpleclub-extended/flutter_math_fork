@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '../constants.dart';
 import '../utils/render_box_offset.dart';
+import '../utils/render_box_layout.dart';
 
 class ResetDimension extends SingleChildRenderObjectWidget {
   final double? height;
@@ -136,14 +137,7 @@ class RenderResetDimension extends RenderShiftedBox {
     bool dry = true,
   }) {
     final child = this.child!;
-    final Size childSize;
-
-    if (dry) {
-      childSize = child.getDryLayout(constraints);
-    } else {
-      child.layout(infiniteConstraint, parentUsesSize: true);
-      childSize = child.size;
-    }
+    final childSize = child.getLayoutSize(constraints, dry: dry);
 
     final childHeight =
         dry ? 0.0 : child.getDistanceToBaseline(TextBaseline.alphabetic)!;

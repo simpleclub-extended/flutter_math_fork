@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import '../utils/render_box_offset.dart';
+import '../utils/render_box_layout.dart';
 
 class MinDimension extends SingleChildRenderObjectWidget {
   final double minHeight;
@@ -121,15 +122,7 @@ class RenderMinDimension extends RenderShiftedBox {
     bool dry = true,
   }) {
     final child = this.child!;
-    final Size childSize;
-
-    if (dry) {
-      childSize = child.getDryLayout(constraints);
-    } else {
-      child.layout(constraints, parentUsesSize: true);
-      childSize = child.size;
-    }
-
+    final childSize = child.getLayoutSize(constraints, dry: dry);
     final childHeight =
         dry ? 0 : child.getDistanceToBaseline(TextBaseline.alphabetic)!;
     final childDepth = childSize.height - childHeight;

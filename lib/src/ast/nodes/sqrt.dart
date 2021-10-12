@@ -14,6 +14,7 @@ import '../../render/svg/delimiter.dart';
 import '../../render/svg/svg_geomertry.dart';
 import '../../render/svg/svg_string.dart';
 import '../../render/utils/render_box_offset.dart';
+import '../../render/utils/render_box_layout.dart';
 import '../options.dart';
 import '../size.dart';
 import '../style.dart';
@@ -167,19 +168,12 @@ class SqrtLayoutDelegate extends CustomLayoutDelegate<_SqrtPos> {
     final index = childrenTable[_SqrtPos.ind];
     final surd = childrenTable[_SqrtPos.surd]!;
 
-    final Size baseSize;
-    final Size indexSize;
-
-    if (dry) {
-      baseSize = base.getDryLayout(infiniteConstraint);
-      indexSize = index?.getDryLayout(infiniteConstraint) ?? Size.zero;
-    } else {
-      base.layout(infiniteConstraint, parentUsesSize: true);
-      index?.layout(infiniteConstraint, parentUsesSize: true);
-
-      baseSize = base.size;
-      indexSize = index?.size ?? Size.zero;
-    }
+    final Size baseSize = base.getLayoutSize(infiniteConstraint, dry: dry);
+    final Size indexSize = index?.getLayoutSize(
+          infiniteConstraint,
+          dry: dry,
+        ) ??
+        Size.zero;
 
     final baseHeight = dry ? 0 : base.layoutHeight;
     final baseWidth = baseSize.width;
@@ -198,19 +192,7 @@ class SqrtLayoutDelegate extends CustomLayoutDelegate<_SqrtPos> {
       minWidth: baseWidth,
       minHeight: minSqrtHeight,
     );
-
-    final Size surdSize;
-
-    if (dry) {
-      surdSize = surd.getDryLayout(surdConstraints);
-    } else {
-      // Pick sqrt svg
-      surd.layout(
-        surdConstraints,
-        parentUsesSize: true,
-      );
-      surdSize = surd.size;
-    }
+    final Size surdSize = surd.getLayoutSize(surdConstraints, dry: dry);
 
     final advanceWidth = getSqrtAdvanceWidth(minSqrtHeight, baseWidth, options);
 
