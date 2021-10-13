@@ -202,9 +202,8 @@ class RenderCustomLayout<T> extends RenderBox
     this.size = _computeLayout(constraints, dry: false);
   }
 
-  Size computeDryLayout(BoxConstraints constraints) {
-    return _computeLayout(constraints);
-  }
+  Size computeDryLayout(BoxConstraints constraints) =>
+      _computeLayout(constraints);
 
   Size _computeLayout(BoxConstraints constraints, {bool dry = true}) =>
       constraints.constrain(

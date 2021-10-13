@@ -117,9 +117,8 @@ class RenderEqnArray extends RenderBox
   double width = 0.0;
 
   @override
-  Size computeDryLayout(BoxConstraints constraints) {
-    return _computeLayout(constraints);
-  }
+  Size computeDryLayout(BoxConstraints constraints) =>
+      _computeLayout(constraints);
 
   @override
   void performLayout() {

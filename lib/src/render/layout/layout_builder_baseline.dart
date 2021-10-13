@@ -53,9 +53,8 @@ class _RenderLayoutBuilderPreserveBaseline extends RenderBox
   }
 
   @override
-  Size computeDryLayout(BoxConstraints constraints) {
-    return child?.getDryLayout(constraints) ?? Size.zero;
-  }
+  Size computeDryLayout(BoxConstraints constraints) =>
+      child?.getDryLayout(constraints) ?? Size.zero;
 
   @override
   void performLayout() {
