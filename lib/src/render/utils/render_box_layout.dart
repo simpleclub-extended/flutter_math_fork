@@ -3,19 +3,19 @@ import 'dart:ui';
 import 'package:flutter/rendering.dart';
 
 extension RenderBoxLayout on RenderBox {
-  /// Returns size of render box based on provided [BoxConstraints].
+  /// Returns the size of render box given the provided [BoxConstraints].
   ///
-  /// `dry` flag indicates whether a real layout pass should be
-  /// executed on render box. Default value assumes that we don't
-  /// want to perform real layout and only get potential size of box.
+  /// The `dry` flag indicates that no real layout pass but only a dry
+  /// layout pass should be executed on the render box.
+  /// Defaults to true.
   Size getLayoutSize(BoxConstraints constraints, {bool dry = true}) {
-    final Size childSize;
+    final Size boxSize;
     if (dry) {
-      childSize = this.getDryLayout(constraints);
+      boxSize = this.getDryLayout(constraints);
     } else {
       this.layout(constraints, parentUsesSize: true);
-      childSize = this.size;
+      boxSize = this.size;
     }
-    return childSize;
+    return boxSize;
   }
 }
