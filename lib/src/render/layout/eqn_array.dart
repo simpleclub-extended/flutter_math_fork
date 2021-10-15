@@ -217,7 +217,9 @@ class RenderEqnArray extends RenderBox
       child = childParentData.nextSibling;
     }
 
-    this.width = width;
+    if (!dry) {
+      this.width = width;
+    }
 
     return Size(width, vPos);
   }
