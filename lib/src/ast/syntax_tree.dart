@@ -564,70 +564,66 @@ class EquationRowNode extends ParentableNode<GreenNode>
           children: lineChildren,
         );
       }
-      // Each EquationRow will filter out unrelated selection changes (changes
-      // happen entirely outside the range of this EquationRow)
-      return ProxyProvider<TextSelection, TextSelection>(
-        create: (_) => const TextSelection.collapsed(offset: -1),
-        update: (context, selection, _) => selection.copyWith(
-          baseOffset:
-              selection.baseOffset.clampInt(range.start - 1, range.end + 1),
-          extentOffset:
-              selection.extentOffset.clampInt(range.start - 1, range.end + 1),
-        ),
-        // Selector translates global cursor position to local caret index
-        // Will only update Line when selection range actually changes
-        child: Selector2<TextSelection, Tuple2<LayerLink, LayerLink>,
-            Tuple3<TextSelection, LayerLink?, LayerLink?>>(
-          selector: (context, selection, handleLayerLinks) {
-            final start = selection.start - this.pos;
-            final end = selection.end - this.pos;
+      // Selector translates global cursor position to local caret index
+      // Will only update Line when selection range actually changes
+      return Selector2<TextSelection, Tuple2<LayerLink, LayerLink>,
+          Tuple3<TextSelection, LayerLink?, LayerLink?>>(
+        selector: (context, selection, handleLayerLinks) {
+          // Each EquationRow will filter out unrelated selection changes (changes
+          // happen entirely outside the range of this EquationRow)
+          final selectionInRange = selection.copyWith(
+              baseOffset:
+                  selection.baseOffset.clampInt(range.start - 1, range.end + 1),
+              extentOffset: selection.extentOffset
+                  .clampInt(range.start - 1, range.end + 1));
+          final start = selectionInRange.start - this.pos;
+          final end = selectionInRange.end - this.pos;
 
-            final caretStart = caretPositions.slotFor(start).ceil();
-            final caretEnd = caretPositions.slotFor(end).floor();
+          final caretStart = caretPositions.slotFor(start).ceil();
+          final caretEnd = caretPositions.slotFor(end).floor();
 
-            final caretSelection = caretStart <= caretEnd
-                ? selection.baseOffset <= selection.extentOffset
-                    ? TextSelection(
-                        baseOffset: caretStart, extentOffset: caretEnd)
-                    : TextSelection(
-                        baseOffset: caretEnd, extentOffset: caretStart)
-                : const TextSelection.collapsed(offset: -1);
+          final caretSelection = caretStart <= caretEnd
+              ? selectionInRange.baseOffset <= selectionInRange.extentOffset
+                  ? TextSelection(
+                      baseOffset: caretStart, extentOffset: caretEnd)
+                  : TextSelection(
+                      baseOffset: caretEnd, extentOffset: caretStart)
+              : const TextSelection.collapsed(offset: -1);
 
-            final startHandleLayerLink =
-                caretPositions.contains(start) ? handleLayerLinks.item1 : null;
-            final endHandleLayerLink =
-                caretPositions.contains(end) ? handleLayerLinks.item2 : null;
-            return Tuple3(
-              caretSelection,
-              startHandleLayerLink,
-              endHandleLayerLink,
-            );
-          },
-          builder: (context, conf, _) {
-            final value = Provider.of<SelectionStyle>(context);
-            return EditableLine(
-              key: _key,
-              children: lineChildren,
-              devicePixelRatio: MediaQuery.of(context).devicePixelRatio,
-              node: this,
-              preferredLineHeight: options.fontSize,
-              cursorBlinkOpacityController:
-                  Provider.of<Wrapper<AnimationController>>(context).value,
-              selection: conf.item1,
-              startHandleLayerLink: conf.item2,
-              endHandleLayerLink: conf.item3,
-              cursorColor: value.cursorColor,
-              cursorOffset: value.cursorOffset,
-              cursorRadius: value.cursorRadius,
-              cursorWidth: value.cursorWidth,
-              cursorHeight: value.cursorHeight,
-              hintingColor: value.hintingColor,
-              paintCursorAboveText: value.paintCursorAboveText,
-              selectionColor: value.selectionColor,
-              showCursor: value.showCursor,
-            );
-          },
-        ),
+          final startHandleLayerLink =
+              caretPositions.contains(start) ? handleLayerLinks.item1 : null;
+          final endHandleLayerLink =
+              caretPositions.contains(end) ? handleLayerLinks.item2 : null;
+          return Tuple3(
+            caretSelection,
+            startHandleLayerLink,
+            endHandleLayerLink,
+          );
+        },
+        builder: (context, conf, _) {
+          final value = Provider.of<SelectionStyle>(context);
+          return EditableLine(
+            key: _key,
+            children: lineChildren,
+            devicePixelRatio: MediaQuery.of(context).devicePixelRatio,
+            node: this,
+            preferredLineHeight: options.fontSize,
+            cursorBlinkOpacityController:
+                Provider.of<Wrapper<AnimationController>>(context).value,
+            selection: conf.item1,
+            startHandleLayerLink: conf.item2,
+            endHandleLayerLink: conf.item3,
+            cursorColor: value.cursorColor,
+            cursorOffset: value.cursorOffset,
+            cursorRadius: value.cursorRadius,
+            cursorWidth: value.cursorWidth,
+            cursorHeight: value.cursorHeight,
+            hintingColor: value.hintingColor,
+            paintCursorAboveText: value.paintCursorAboveText,
+            selectionColor: value.selectionColor,
+            showCursor: value.showCursor,
+          );
+        },
       );
     });
 
