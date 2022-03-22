@@ -57,7 +57,7 @@ class _MathSelectionHandleOverlayState extends State<MathSelectionHandleOverlay>
     super.initState();
 
     _controller = AnimationController(
-        duration: TextSelectionOverlay.fadeDuration, vsync: this);
+        duration: SelectionOverlay.fadeDuration, vsync: this);
 
     _controller.forward();
   }
