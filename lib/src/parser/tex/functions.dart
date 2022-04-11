@@ -21,8 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import '../../ast/syntax_tree.dart';
-import '../../ast/types.dart';
+import '../../../ast.dart';
+import 'functions/custom/cursor.dart';
 import 'functions/katex_base.dart';
 import 'functions/katex_ext.dart';
 import 'parser.dart';
@@ -82,4 +82,6 @@ extension RegisterFunctionExt on Map<String, FunctionSpec> {
 
 final Map<String, FunctionSpec> functions = <String, FunctionSpec>{}
   ..registerFunctions(katexBaseFunctionEntries)
-  ..registerFunctions(katexExtFunctionEntries);
+  ..registerFunctions(katexExtFunctionEntries)
+  ..registerFunctions(cursorEntries);
+
