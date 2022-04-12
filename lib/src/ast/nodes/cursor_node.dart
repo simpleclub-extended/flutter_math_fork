@@ -12,7 +12,7 @@ class CursorNode extends LeafNode {
   BuildResult buildWidget(
       MathOptions options, List<BuildResult?> childBuildResults) {
     final baselinePart = 1 - options.fontMetrics.axisHeight / 2;
-    final height = options.fontSize * baselinePart;
+    final height = options.fontSize * baselinePart * options.sizeMultiplier;
     final baselineDistance = height * baselinePart;
     final cursor = Container(height: height, width: 1.5, color: options.color);
     return BuildResult(
