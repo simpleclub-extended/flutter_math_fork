@@ -1,3 +1,7 @@
+## 0.6.2
+
+* Added CursorNode
+
 ## 0.6.1
 
 * Fixed text selection (`SelectableMath`).
