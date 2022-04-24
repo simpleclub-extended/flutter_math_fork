@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    # Windows is important here because snapshots were generated on Windows in original package.
+    # When switching to another OS, all snapshot tests will be ignored.
+    runs-on: windows-latest
+
+    steps:
+      # check out repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # setup flutter environment
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '2.10.4'
+          channel: 'stable'
+
+      # get flutter dependencies
+      - name: Get dependencies
+        run: flutter pub get
+
+      # run tests
+      - name: Run tests
+        run: flutter test
