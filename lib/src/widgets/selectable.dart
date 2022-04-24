@@ -555,6 +555,10 @@ class InternalSelectableMathState extends State<InternalSelectableMath>
   @override
   double get preferredLineHeight => widget.options.fontSize;
 
+  // fix 'bringIntoView' method not found in tests
+  @override
+  void bringIntoView(TextPosition position) {}
+
   @override
   dynamic noSuchMethod(Invocation invocation) {
     // We override noSuchMethod since we do not have concrete implementations

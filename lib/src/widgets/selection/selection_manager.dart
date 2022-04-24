@@ -223,14 +223,19 @@ mixin SelectionManagerMixin<T extends StatefulWidget> on State<T>
     if (value.selection.start == 0 &&
         value.selection.end == value.text.length &&
         value.text.length > controller.ast.greenRoot.capturedCursor - 1) {
-      handleSelectionChanged(
-        TextSelection(
-          baseOffset: 0,
-          extentOffset: controller.ast.greenRoot.capturedCursor - 1,
-        ),
-        null,
-        ExtraSelectionChangedCause.handle,
-      );
+      selectAll(null);
     }
+  }
+
+  @override
+  void selectAll(SelectionChangedCause? cause) {
+    handleSelectionChanged(
+      TextSelection(
+        baseOffset: 0,
+        extentOffset: controller.ast.greenRoot.capturedCursor - 1,
+      ),
+      cause,
+      ExtraSelectionChangedCause.handle,
+    );
   }
 }
