@@ -456,7 +456,7 @@ class InternalSelectableMathState extends State<InternalSelectableMath>
     super.didChangeDependencies();
     if (!_didAutoFocus && widget.autofocus) {
       _didAutoFocus = true;
-      SchedulerBinding.instance!.addPostFrameCallback((_) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
           FocusScope.of(context).autofocus(widget.focusNode!);
         }
