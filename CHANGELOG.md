@@ -1,3 +1,7 @@
+## 0.6.3
+
+* Removed unnecessary null-aware operators. Bumped min Flutter version to `3.0.0` and Dart to `2.17.0`.
+
 ## 0.6.2
 
 * Added CursorNode
