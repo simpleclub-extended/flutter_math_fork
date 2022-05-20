@@ -6,8 +6,7 @@ analyzer:
     implicit-dynamic: false
   exclude:
     - lib/**.freezed.dart
-  enable-experiment:
-    - non-nullable
+
 linter:
   rules:
     - prefer_relative_imports
