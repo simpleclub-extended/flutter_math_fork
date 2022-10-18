@@ -56,7 +56,7 @@ class FunctionNode extends SlotableNode<EquationRowNode> {
 
   @override
   FunctionNode updateChildren(List<EquationRowNode> newChildren) =>
-      copyWith(functionName: newChildren[0], argument: newChildren[2]);
+      copyWith(functionName: newChildren[0], argument: newChildren[1]);
 
   @override
   Map<String, Object?> toJson() => super.toJson()
