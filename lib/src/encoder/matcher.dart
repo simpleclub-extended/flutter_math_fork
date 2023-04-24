@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:collection/collection.dart';
 
 import '../ast/syntax_tree.dart';
-import '../utils/iterable_extensions.dart';
 
 abstract class Matcher {
   const Matcher();

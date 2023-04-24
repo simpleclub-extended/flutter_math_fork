@@ -5,7 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../ast/nodes/matrix.dart';
-import '../../utils/iterable_extensions.dart';
 import '../constants.dart';
 import '../utils/render_box_offset.dart';
 import '../utils/render_box_layout.dart';
