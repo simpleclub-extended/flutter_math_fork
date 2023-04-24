@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 const equations = [
   ['Solution of quadratic equation', r'x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}'],
@@ -38,10 +36,7 @@ class EquationsPage extends StatelessWidget {
                           children: [
                             ListTile(
                               title: Text(entry[0]),
-                              subtitle: SelectableText(
-                                entry[1],
-                                style: GoogleFonts.robotoMono(),
-                              ),
+                              subtitle: SelectableText(entry[1]),
                             ),
                             Container(
                               padding: const EdgeInsets.fromLTRB(1, 5, 1, 5),
