@@ -28,7 +28,7 @@ class MathSelectionGestureDetectorBuilder {
 
   /// Handler for [TextSelectionGestureDetector.onTapDown].
   @protected
-  void onTapDown(TapDownDetails details) {
+  void onTapDown(TapDragDownDetails details) {
     lastTapDownPosition = details.globalPosition;
     // The selection overlay should only be shown when the user is interacting
     // through a touch screen (via either a finger or a stylus). A mouse
@@ -95,7 +95,7 @@ class MathSelectionGestureDetectorBuilder {
   ///  * [TextSelectionGestureDetector.onSingleTapUp], which triggers
   ///    this callback.
   @protected
-  void onSingleTapUp(TapUpDetails details) {
+  void onSingleTapUp(TapDragUpDetails details) {
     if (delegate.selectionEnabled) {
       delegate.selectPositionAt(
           from: lastTapDownPosition!, cause: SelectionChangedCause.tap);
@@ -145,7 +145,7 @@ class MathSelectionGestureDetectorBuilder {
   }
 
   @protected
-  void onDoubleTapDown(TapDownDetails details) {
+  void onDoubleTapDown(TapDragDownDetails details) {
     if (delegate.selectionEnabled) {
       delegate.selectWordAt(
           offset: details.globalPosition, cause: SelectionChangedCause.tap);
@@ -153,8 +153,11 @@ class MathSelectionGestureDetectorBuilder {
     }
   }
 
+  late TapDragStartDetails startDetails;
+
   @protected
-  void onDragSelectionStart(DragStartDetails details) {
+  void onDragSelectionStart(TapDragStartDetails details) {
+    startDetails = details;
     delegate.selectPositionAt(
       from: details.globalPosition,
       cause: SelectionChangedCause.drag,
@@ -162,13 +165,12 @@ class MathSelectionGestureDetectorBuilder {
   }
 
   @protected
-  void onDragSelectionEnd(DragEndDetails details) {
+  void onDragSelectionEnd(TapDragEndDetails details) {
     /* Subclass should override this method if needed. */
   }
 
   @protected
-  void onDragSelectionUpdate(
-      DragStartDetails startDetails, DragUpdateDetails updateDetails) {
+  void onDragSelectionUpdate(TapDragUpdateDetails updateDetails) {
     delegate.selectPositionAt(
       from: startDetails.globalPosition,
       to: updateDetails.globalPosition,
