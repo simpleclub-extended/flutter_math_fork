@@ -37,7 +37,7 @@ class DemoPage extends StatelessWidget {
                         Center(
                           child: Text(
                             "Flutter Math's output",
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ),
                         Expanded(

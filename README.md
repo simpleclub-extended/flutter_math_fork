@@ -107,7 +107,7 @@ SelectableMath(
 ## [Line Breaking](doc/line_breaking.md)
 
 ## Credits
-This project is possible thanks to the inspirations and resources from [the KaTeX Project](https://katex.org/), [MathJax](www.mathjax.org), [Zefyr](https://github.com/memspace/zefyr), and [CaTeX](https://github.com/simpleclub/CaTeX).
+This project is possible thanks to the inspirations and resources from [the KaTeX Project](https://katex.org/), [MathJax](www.mathjax.org), [Zefyr](https://github.com/memspace/zefyr), and [CaTeX](https://github.com/simpleclub/CaTeX), and [flutter_html_math](https://github.com/Sub6Resources/flutter_html).
 
 ## Goals
 - [x] : TeX math parsing (See [design doc](doc/design.md))
@@ -117,4 +117,4 @@ This project is possible thanks to the inspirations and resources from [the KaTe
 - [ ] : UnicodeMath parsing and encoding
 - [ ] : [UnicodeMath](https://www.unicode.org/notes/tn28/UTN28-PlainTextMath-v3.1.pdf)-style editing
 - [ ] : Breakable equations
-- [ ] : MathML parsing and encoding
+- [X] : MathML parsing and encoding
