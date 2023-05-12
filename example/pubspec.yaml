@@ -18,7 +18,7 @@ dependencies:
 
   provider: any
   flutter_tex: ^4.0.3+4
-  google_fonts: ^2.0.0
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

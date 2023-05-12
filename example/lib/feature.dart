@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'display.dart';
 import 'supported_data.dart';
@@ -20,7 +19,7 @@ class FeaturePage extends StatelessWidget {
         children: <Widget>[
           Text(
             entries[i].key,
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.displaySmall,
           ),
           GridView.builder(
             shrinkWrap: true,

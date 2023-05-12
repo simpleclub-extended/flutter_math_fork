@@ -1,3 +1,8 @@
+## 0.7.0
+
+* Support for Dart version `3.0.0`.
+* Code cleanups.
+
 ## 0.6.3+1
 
 * Updated example app flutter_tex dependency.

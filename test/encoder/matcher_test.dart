@@ -1,4 +1,3 @@
-import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:flutter_math_fork/src/ast/nodes/frac.dart';
 import 'package:flutter_math_fork/src/ast/nodes/symbol.dart';
 import 'package:flutter_math_fork/tex.dart';
