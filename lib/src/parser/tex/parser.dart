@@ -329,7 +329,7 @@ class TexParser {
     this.nextToken = null;
   }
 
-  /// [parseGroup] Return a row if encounters [] or {}. Returns single function
+  /// [parseGroup] Return a row if encounters \[\] or {}. Returns single function
   /// node or a single symbol otherwise.
   ///
   ///

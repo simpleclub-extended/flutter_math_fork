@@ -54,7 +54,7 @@ class _MathSelectionHandleOverlayState extends State<MathSelectionHandleOverlay>
     super.initState();
 
     _controller = AnimationController(
-        duration: TextSelectionOverlay.fadeDuration, vsync: this);
+        duration: SelectionOverlay.fadeDuration, vsync: this);
 
     _controller.forward();
   }
@@ -175,23 +175,14 @@ class _MathSelectionHandleOverlayState extends State<MathSelectionHandleOverlay>
         TextSelectionHandleType type,
         double textLineHeight,
         VoidCallback? onTap)) {
-      child = (widget.selectionControls.buildHandle as Widget Function(
-        BuildContext context,
-        TextSelectionHandleType type,
-        double textLineHeight,
-        VoidCallback? onTap,
-      ))(
+      child = (widget.selectionControls.buildHandle)(
         context,
         type,
         widget.manager.preferredLineHeight,
         null,
       );
     } else {
-      child = (widget.selectionControls.buildHandle as Widget Function(
-        BuildContext context,
-        TextSelectionHandleType type,
-        double textLineHeight,
-      ))(
+      child = (widget.selectionControls.buildHandle)(
         context,
         type,
         widget.manager.preferredLineHeight,

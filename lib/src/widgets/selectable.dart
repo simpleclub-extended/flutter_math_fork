@@ -230,7 +230,7 @@ class SelectableMath extends StatelessWidget {
     if (effectiveTextStyle == null || effectiveTextStyle.inherit) {
       effectiveTextStyle = DefaultTextStyle.of(context).style.merge(textStyle);
     }
-    if (MediaQuery.boldTextOverride(context)) {
+    if (MediaQuery.boldTextOf(context)) {
       effectiveTextStyle = effectiveTextStyle
           .merge(const TextStyle(fontWeight: FontWeight.bold));
     }
