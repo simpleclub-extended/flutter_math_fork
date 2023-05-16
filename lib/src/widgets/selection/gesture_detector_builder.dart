@@ -169,7 +169,7 @@ class MathSelectionGestureDetectorBuilder {
   @protected
   void onDragSelectionUpdate(TapDragUpdateDetails details) {
     delegate.selectPositionAt(
-      from: details.globalPosition,
+      from: details.globalPosition - details.offsetFromOrigin,
       to: details.globalPosition,
       cause: SelectionChangedCause.drag,
     );
