@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../ast/options.dart';
@@ -177,7 +176,7 @@ class Math extends StatelessWidget {
         effectiveTextStyle =
             DefaultTextStyle.of(context).style.merge(textStyle);
       }
-      if (MediaQuery.boldTextOverride(context)) {
+      if (MediaQuery.boldTextOf(context)) {
         effectiveTextStyle = effectiveTextStyle
             .merge(const TextStyle(fontWeight: FontWeight.bold));
       }

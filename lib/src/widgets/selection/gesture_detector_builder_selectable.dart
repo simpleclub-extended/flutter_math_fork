@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'gesture_detector_builder.dart';
@@ -36,7 +35,7 @@ class SelectableMathSelectionGestureDetectorBuilder
   }
 
   @override
-  void onSingleTapUp(TapUpDetails details) {
+  void onSingleTapUp(TapDragUpDetails details) {
     delegate.hide();
     if (delegate.selectionEnabled) {
       switch (Theme.of(delegate.context).platform) {
