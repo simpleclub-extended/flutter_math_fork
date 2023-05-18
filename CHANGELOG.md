@@ -1,3 +1,8 @@
+## 0.7.1
+
+* Update `flutter_svg` dependency
+* Make expressions inside a root selectable
+
 ## 0.7.0
 
 * Support for Dart version `3.0.0`.

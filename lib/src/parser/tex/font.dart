@@ -150,7 +150,7 @@ const texMathFontOptions = {
     fontShape: FontStyle.italic,
     fallback: [
       FontOptions(
-        fontFamily: 'Math',
+        fontFamily: 'Main',
         fontWeight: FontWeight.bold,
       )
     ],

@@ -1,6 +1,6 @@
 name: flutter_math_fork
 description: Fast and high-quality TeX math equation rendering with pure Dart & Flutter. 
-version: 0.7.0
+version: 0.7.1
 homepage: https://github.com/simpleclub-extended/flutter_math_fork
 
 environment:
@@ -10,12 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  flutter_svg: ^1.0.0
-  provider: ^6.0.0
-  meta: ^1.3.0
-  collection: ^1.15.0
-  tuple: ^2.0.0
+    
+  flutter_svg: ">=2.0.0+1 <3.0.0"
+  provider: ^6.0.5
+  meta: ^1.8.0
+  collection: ^1.17.0
+  tuple: ^2.0.1
   # Plugin for parsing html
   html: ^0.15.0
 
