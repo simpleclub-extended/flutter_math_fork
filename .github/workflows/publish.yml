@@ -6,14 +6,42 @@ on:
     # Must align with the tag-pattern configured on pub.dev.
     - 'v[0-9]+.[0-9]+.[0-9]+*'
 
-# Publish using the reusable workflow from dart-lang.
 jobs:
-  publish:
+  pana:
+    timeout-minutes: 9
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # This is required for authentication using OIDC
+    name: Configuration of ${{ matrix.package }}
+    strategy:
+      matrix:
+        package:
+          - 'flutter_math_fork'
+      fail-fast: false
+
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2.3.3
+      - uses: axel-op/dart-package-analyzer@v3
+        with:
+          relativePath: ${{ matrix.package }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    needs: pana
+    timeout-minutes: 4
+    runs-on: ubuntu-latest
+    name: Publishing of ${{ matrix.package }}
+    permissions:
+      id-token: write # Allows to publish to pub.dev without personal credentials
+    strategy:
+      matrix:
+        package:
+          - 'flutter_math_fork'
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2.3.3
+        with:
+          fetch-depth: 2
+          
       - uses: dart-lang/setup-dart@v1
       - uses: subosito/flutter-action@v2
         with:
