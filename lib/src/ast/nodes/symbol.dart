@@ -100,6 +100,7 @@ class SymbolNode extends LeafNode {
 
   @override
   bool shouldRebuildWidget(MathOptions oldOptions, MathOptions newOptions) =>
+      oldOptions.color != newOptions.color ||
       oldOptions.mathFontOptions != newOptions.mathFontOptions ||
       oldOptions.textFontOptions != newOptions.textFontOptions ||
       oldOptions.sizeMultiplier != newOptions.sizeMultiplier;
