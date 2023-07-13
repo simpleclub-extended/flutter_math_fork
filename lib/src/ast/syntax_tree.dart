@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:tuple/tuple.dart';
 
 import '../render/layout/line.dart';
 import '../render/layout/line_editable.dart';
@@ -580,8 +579,8 @@ class EquationRowNode extends ParentableNode<GreenNode>
         },
         // Selector translates global cursor position to local caret index
         // Will only update Line when selection range actually changes
-        child: Selector2<TextSelection, Tuple2<LayerLink, LayerLink>,
-            Tuple3<TextSelection, LayerLink?, LayerLink?>>(
+        child: Selector2<TextSelection, (LayerLink, LayerLink),
+            (TextSelection, LayerLink?, LayerLink?)>(
           selector: (context, selection, handleLayerLinks) {
             final start = selection.start - this.pos;
             final end = selection.end - this.pos;
@@ -598,10 +597,10 @@ class EquationRowNode extends ParentableNode<GreenNode>
                 : const TextSelection.collapsed(offset: -1);
 
             final startHandleLayerLink =
-                caretPositions.contains(start) ? handleLayerLinks.item1 : null;
+                caretPositions.contains(start) ? handleLayerLinks.$1 : null;
             final endHandleLayerLink =
-                caretPositions.contains(end) ? handleLayerLinks.item2 : null;
-            return Tuple3(
+                caretPositions.contains(end) ? handleLayerLinks.$2 : null;
+            return (
               caretSelection,
               startHandleLayerLink,
               endHandleLayerLink,
@@ -617,9 +616,9 @@ class EquationRowNode extends ParentableNode<GreenNode>
               preferredLineHeight: options.fontSize,
               cursorBlinkOpacityController:
                   Provider.of<Wrapper<AnimationController>>(context).value,
-              selection: conf.item1,
-              startHandleLayerLink: conf.item2,
-              endHandleLayerLink: conf.item3,
+              selection: conf.$1,
+              startHandleLayerLink: conf.$2,
+              endHandleLayerLink: conf.$3,
               cursorColor: value.cursorColor,
               cursorOffset: value.cursorOffset,
               cursorRadius: value.cursorRadius,
@@ -863,7 +862,7 @@ void _traverseNonSpaceNodes(
   void Function(_NodeSpacingConf? prev, _NodeSpacingConf? curr) callback,
 ) {
   _NodeSpacingConf? prev;
-  // Tuple2<AtomType, AtomType> curr;
+  // (AtomType, AtomType) curr;
   for (final child in childTypeList) {
     if (child.leftType == AtomType.spacing ||
         child.rightType == AtomType.spacing) {
