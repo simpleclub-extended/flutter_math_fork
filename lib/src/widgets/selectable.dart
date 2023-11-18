@@ -242,7 +242,7 @@ class SelectableMath extends StatelessWidget {
         MathOptions(
           style: mathStyle,
           fontSize: effectiveTextStyle.fontSize! * textScaleFactor,
-          mathFontOptions: effectiveTextStyle.fontWeight != FontWeight.normal
+          mathFontOptions: effectiveTextStyle.fontWeight != FontWeight.normal && effectiveTextStyle.fontWeight != null
               ? FontOptions(fontWeight: effectiveTextStyle.fontWeight!)
               : null,
           logicalPpi: logicalPpi,
