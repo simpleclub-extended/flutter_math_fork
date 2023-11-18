@@ -1,3 +1,9 @@
+## 0.7.2
+
+* Fix: add missing import to gesture_detector_builder_selectable.dart (#87)
+* Fix: simple null pointer exception (#82)
+* Fix: function node children update (#58)
+
 ## 0.7.1
 
 * Update `flutter_svg` dependency
