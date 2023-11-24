@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 import 'package:provider/provider.dart';
+import 'package:html/dom.dart' as dom;
 
 import '../ast/options.dart';
 import '../ast/style.dart';
@@ -8,6 +10,7 @@ import '../ast/tex_break.dart';
 import '../parser/tex/parse_error.dart';
 import '../parser/tex/parser.dart';
 import '../parser/tex/settings.dart';
+import '../utils/mathml_to_tex.dart';
 import 'exception.dart';
 import 'mode.dart';
 import 'selectable.dart';
@@ -161,6 +164,61 @@ class Math extends StatelessWidget {
       textScaleFactor: textScaleFactor,
       textStyle: textStyle,
     );
+  }
+
+  /// Math builder using a MathML string
+  ///
+  /// {@template flutter_math_fork.widgets.math.tex_builder}
+  /// [expression] will first be parsed under [settings]. Then the acquired
+  /// [SyntaxTree] will be built under a specific options. If [ParseException]
+  /// is thrown or a build error occurs, [onErrorFallback] will be displayed.
+  ///
+  /// You can control the options via [mathStyle] and [textStyle].
+  /// {@endtemplate}
+  ///
+  /// See alse:
+  ///
+  /// * [Math.mathStyle]
+  /// * [Math.textStyle]
+  factory Math.mathML(
+    String expression, {
+    Key? key,
+    MathStyle mathStyle = MathStyle.display,
+    TextStyle? textStyle,
+    OnErrorFallback onErrorFallback = defaultOnErrorFallback,
+    TexParserSettings settings = const TexParserSettings(),
+    double? textScaleFactor,
+    MathOptions? options,
+  }) {
+    return Math.mathMLFromDom(parse(expression));
+  }
+
+  /// Math builder using a Math Element
+  ///
+  /// {@template flutter_math_fork.widgets.math.tex_builder}
+  /// [expression] will first be parsed under [settings]. Then the acquired
+  /// [SyntaxTree] will be built under a specific options. If [ParseException]
+  /// is thrown or a build error occurs, [onErrorFallback] will be displayed.
+  ///
+  /// You can control the options via [mathStyle] and [textStyle].
+  /// {@endtemplate}
+  ///
+  /// See alse:
+  ///
+  /// * [Math.mathStyle]
+  /// * [Math.textStyle]
+  factory Math.mathMLFromDom(
+    dom.Node node, {
+    Key? key,
+    MathStyle mathStyle = MathStyle.display,
+    TextStyle? textStyle,
+    OnErrorFallback onErrorFallback = defaultOnErrorFallback,
+    TexParserSettings settings = const TexParserSettings(),
+    double? textScaleFactor,
+    MathOptions? options,
+  }) {
+    final expression = parseMathMLRecursive(node, r'');
+    return Math.tex(expression);
   }
 
   @override

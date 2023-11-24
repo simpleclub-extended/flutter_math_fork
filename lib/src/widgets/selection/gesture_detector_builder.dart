@@ -153,8 +153,11 @@ class MathSelectionGestureDetectorBuilder {
     }
   }
 
+  late TapDragStartDetails startDetails;
+
   @protected
   void onDragSelectionStart(TapDragStartDetails details) {
+    startDetails = details;
     delegate.selectPositionAt(
       from: details.globalPosition,
       cause: SelectionChangedCause.drag,
@@ -167,10 +170,10 @@ class MathSelectionGestureDetectorBuilder {
   }
 
   @protected
-  void onDragSelectionUpdate(TapDragUpdateDetails details) {
+  void onDragSelectionUpdate(TapDragUpdateDetails updateDetails) {
     delegate.selectPositionAt(
-      from: details.globalPosition - details.offsetFromOrigin,
-      to: details.globalPosition,
+      from: startDetails.globalPosition,
+      to: updateDetails.globalPosition,
       cause: SelectionChangedCause.drag,
     );
   }
